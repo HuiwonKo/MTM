@@ -1,0 +1,19 @@
+    {{post.title}}
+    {{post.created_at}}
+    {{post.updated_at}}
+    {{post.author}}
+    {{post.capacity}}
+    {{post.hours}}
+    {{post.date}}
+    {{post.lowest_price}}
+    {{post.like_set.count}}
+    {{post.intro}}
+
+    {% for comment in post.comment_set.all %}
+
+    {{comment.author}}
+    {{comment.content}}
+    {{comment.created_at}}
+    {{comment.updated_at}}
+
+    {% endfor %}

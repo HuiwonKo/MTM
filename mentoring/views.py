@@ -29,7 +29,7 @@ def post_by_mentor_detail(request, pk):
         else:
             like = Like.objects.filter(like_user=request.user, like_post=post_by_mentor).exists()
             return render(request, 'mentoring/post_by_mentor_detail.html', {
-                'post_by_mentor' : post_by_mentor,
+                'post' : post_by_mentor,
                 'like' : like,
             })
     else:
@@ -143,7 +143,7 @@ def mentee_list(request):
 def post_by_mentee_detail(request, pk):
     post_by_mentee = get_object_or_404(Post_By_Mentee, pk=pk)
     return render(request, 'mentoring/post_by_mentee_detail.html', {
-        'post_by_mentee' : post_by_mentee,
+        'post' : post_by_mentee,
     })
 
 @login_required
