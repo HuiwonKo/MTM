@@ -1,0 +1,171 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Mentor To Mentee</title>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+
+
+    <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/flat-ui.css' %}">
+    <link rel="stylesheet" href="{% static 'css/icon-font.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'vendor/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/clean-blog.min.css'%}" rel="stylesheet" type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/comment.css'%}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="your_path/bootstrap.min.css">
+    <link rel="stylesheet" href="your_path/smt-bootstrap.css">
+
+
+
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'js/typed.js' %}" type="text/javascript"></script>
+
+    <link href="{% static 'css/animate.css' %}" rel = "stylesheet" type="text/css">
+
+
+
+</head>
+<body>
+<div class="page-wrapper">
+            <!-- header-10 -->
+            <header class="header-10">
+                <div class="container">
+                    <div class="navbar col-sm-12" role="navigation">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle"><img src="static/icons/menu-icon-header-17.png"></button>
+                            <a class="brand" href="{% url 'index' %}">MTM</a>
+                         </div>
+                        <div class="collapse navbar-collapse pull-right">
+                        <ul class="nav pull-left">
+                        <li class="active">
+                            <a href="{% url 'index' %}">홈</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'mentoring:mentor_list' %}">멘토 찾기</a>
+                        </li>
+                        <li>
+                            <a href="#">멘티 찾기</a>
+                        </li>
+                        {%if not user.is_authenticated %}
+                        <li>
+                            <a href="{% url 'account:login' %}">Login</a>
+                        </li>
+                        {% else %}
+                        <li>
+                            <a href="#">Mypage</a>
+                        </li>
+                        <li>
+                            <a href="#">Logout</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+
+{% block content %}
+{% endblock %}
+
+
+<footer class="footer-3">
+                <div class="container-fluid">
+                    <div class="row v-center">
+                        <div class="col-sm-2">
+                            <a class="brand" href="#">MTM</a>
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="additional-links">
+                                Be sure to take a look to our <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <h6>New York, NY</h6>
+                            <div class="address">
+                                62 West 55th Street, Suite 302<br>New York, NY, 10230
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </footer>
+        </div>
+
+
+
+    <link href="{% static 'css/main.css'%}" rel="stylesheet"/>
+    <style>
+        /* code for animated blinking cursor */
+        .typed-cursor{
+            opacity: 1;
+            font-weight: 100;
+            -webkit-animation: blink 0.7s infinite;
+            -moz-animation: blink 0.7s infinite;
+            -ms-animation: blink 0.7s infinite;
+            -o-animation: blink 0.7s infinite;
+            animation: blink 0.7s infinite;
+        }
+        @-keyframes blink{
+            0% { opacity:1; }
+            50% { opacity:0; }
+            100% { opacity:1; }
+        }
+        @-webkit-keyframes blink{
+            0% { opacity:1; }
+            50% { opacity:0; }
+            100% { opacity:1; }
+        }
+        @-moz-keyframes blink{
+            0% { opacity:1; }
+            50% { opacity:0; }
+            100% { opacity:1; }
+        }
+        @-ms-keyframes blink{
+            0% { opacity:1; }
+            50% { opacity:0; }
+            100% { opacity:1; }
+        }
+        @-o-keyframes blink{
+            0% { opacity:1; }
+            50% { opacity:0; }
+            100% { opacity:1; }
+        }
+    </style>
+
+         <!-- wow.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %} "></script>
+
+    <!-- Contact Form JavaScript -->
+    <script src="{% static 'js/jqBootstrapValidation.js' %}"></script>
+    <script src="{% static 'js/contact_me.js' %}"></script>
+
+    <!-- Theme JavaScript -->
+    <script src="{% static 'js/clean-blog.min.js'%}"></script>
+<script src="{% static 'js/jquery-1.10.2.min.js'%}"></script>
+        <script src="{% static 'js/bootstrap.min.js'%}"></script>
+        <script src="% static 'js/modernizr.custom.js'%}"></script>
+        <script src="{% static 'js/jquery.scrollTo-1.4.3.1-min.js'%}"></script>
+        <script src="{% static 'js/jquery.parallax.min.js'%}"></script>
+        <script src="{% static 'js/startup-kit.js'%}"></script>
+        <script src="{% static 'js/jquery.backgroundvideo.min.js'%}"></script>
+        <script src="{% static 'js/script.js'%}"></script>
+
+
+    {% block script %}
+    {% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,60 @@
+{% extends 'mentoring/base.html' %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+{% block content %}
+<br>
+<br>
+<br>
+
+
+<div class="login">
+        <div class="login-screen">
+          <div class="login-icon">
+            <img src="images/login/icon.png" alt="Welcome to Mail App" />
+            <h4>Welcome to <small>Mail App</small></h4>
+          </div>
+
+          <div class="login-form">
+            <div class="form-group">
+              <input type="text" class="form-control login-field" value="" placeholder="Enter your name" id="login-name" />
+              <label class="login-field-icon fui-user" for="login-name"></label>
+            </div>
+
+
+            <div class="form-group">
+              <input type="password" class="form-control login-field" value="" placeholder="Password" id="login-pass" />
+              <label class="login-field-icon fui-lock" for="login-pass"></label>
+            </div>
+
+            <a class="btn btn-primary btn-lg btn-block" href="#">Login</a>
+            <a class="login-link" href="#">Lost your password?</a>
+          </div>
+        </div>
+      </div>
+
+<div class = "container">
+    <div class = "row">
+        <div class = "col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <form action="" method = "post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class = "panel panel-default">
+                    <div class = "panel-heading"></div>
+                    <div class = "panel-body">
+                        {% bootstrap_form form %}
+                    </div>
+                    <div class = "panel-footer text-right">
+                        <input type = "submit" class = "btn btn-default" value = "로그인"/>
+                       <br>
+                       {%if form.non_field_errors%}
+                       <div>
+                       <h5>아이디/패스워드를 정확히 입력하세요.</h5>
+                       </div>
+                       {% endif %}
+                    </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

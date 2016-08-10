@@ -1,0 +1,74 @@
+{% extends 'mentoring/base.html' %}
+{% load staticfiles %}
+{% load thumbnail %}
+{% block content %}
+<!-- Page Header -->
+<!-- Set your background image for this header on the line below. -->
+<header class="intro-header" style="background-image: url('{% static 'img/home-bg.jpg' %}')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="page-heading mentor">
+                    <h1>Mento list</h1>
+                    <hr class="small">
+                    <span class="subheading">원하는 멘토를 찾으세요.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- Main Content -->
+<div class="container-fluid">
+
+        <div class="col-md-offset-1 col-md-10 col-sm-12">
+            {%if user.is_authenticated %}
+            <div class="text-right">
+                <a href="{% url 'mentoring:post_by_mentor_new' %}"><h4>[멘토로 등록하기]</h4></a>
+            </div>
+            {% endif %}
+
+            <div class="show-like-table col-sm-12">
+            {% for mentor in mentor_list %}
+            <div class="col-md-4 col-sm-6 col-xs-12 wow slideInUp" data-wow-delay="0.1s">
+                <a href="{% url 'mentoring:post_by_mentor_detail' mentor.pk %}">
+                    <div class="mentor_container">
+                        <div class="img_container container-fluid">
+                            {% if mentor.image %}
+                                {% thumbnail mentor.image "150x100" crop="center" as im %}
+                                <img src="{{im.url}}" width="{{im.width}}" height="{{im.height}}" class="img-responsive col-xs-12" alt="">
+                                {% endthumbnail %}
+                            {% else %}
+                            <h3>{{mentor.title}}</h3>
+                            {% endif %}
+                        </div>
+                        <div class="mentor_title">
+                            <h3>{{mentor.title}}</h3>
+                            <div class="wrap"><i class="fa fa-user" aria-hidden="true"></i> {{mentor.author.resume.name}}&nbsp득표수:{{mentor.vote_set.count}}</div>
+                            <div class="span12"><i class="fa fa-clock-o" aria-hidden="true"></i> {{mentor.updated_at|date:'Y-m-d H:m'}}</div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+            </div>
+            <!-- Pager
+             <ul class="pager">
+                 <li class="next">
+                     <a href="#">Older Posts &rarr;</a>
+                 </li>
+             </ul>
+             -->
+        </div>
+    </div>
+
+{% endblock %}
+{% block script %}
+<script>
+    new WOW().init();
+    $(document).ready(function (){
+        $('.page-heading.mentor').on('click', function (){
+            location.href='/mentor/'
+        })
+    })
+</script>
+{% endblock %}
