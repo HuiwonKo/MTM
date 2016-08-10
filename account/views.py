@@ -5,7 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
-from django.shortcuts import render,redirect
+from django.shortcuts import render, get_object_or_404, redirect
 
 from .models import Profile,MentorInfo
 from .forms import ProfileForm, ProfileUpdateForm, MentorInfoForm

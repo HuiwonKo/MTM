@@ -56,14 +56,14 @@
                         </li>
                         {%if not user.is_authenticated %}
                         <li>
-                            <a href="{% url 'account:login' %}">Login</a>
+                            <a href="{% url 'account:login' %}?next={{request.path}}">Login</a>
                         </li>
                         {% else %}
                         <li>
-                            <a href="#">Mypage</a>
+                            <a href="{% url 'account:profile' %}?next={{request.path}}">Mypage</a>
                         </li>
                         <li>
-                            <a href="#">Logout</a>
+                            <a href="{% url 'account:logout' %}?next={{request.path}}">Logout</a>
                         </li>
                         {% endif %}
                     </ul>
