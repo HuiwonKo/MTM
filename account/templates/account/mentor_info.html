@@ -1,0 +1,93 @@
+{% extends 'mentoring/base.html' %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+
+{% block style %}
+<style>
+
+.pull-right {
+  float: right !important;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+      <div class="row">
+
+
+          <div class="panel panel-default" style="margin-bottom: 10%; margin-top: 10%;">
+            <div class="panel-heading">
+              <h3 class="panel-title"><strong>멘토회원 추가정보</strong></h3>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="https://static.techinasia.com/wp-content/themes/techinasia/img/icon-defaultprofile.png" class="img-circle img-responsive"> </div>
+
+
+                <div class=" col-md-9 col-lg-9 ">
+                  <table class="table table-user-information">
+                    <tbody>
+                      <tr>
+                        <td>나이:</td>
+                        <td>{{mentor_info.age}}</td>
+                      </tr>
+                      <tr>
+                        <td>성별:</td>
+                        <td>{{mentor_info.gender}}</td>
+                      </tr>
+                      <tr>
+                        <td>위치:</td>
+                        <td>{{mentor_info.lnglat}}</td>
+                      </tr>
+                      <tr>
+
+                        <td>출신 고등학교:</td>
+                        <td>{{mentor_info.highschool}}</td>
+                      </tr>
+                      <tr>
+                        <td>재학중인 대학교:</td>
+                        <td>{{mentor_info.university}}</td>
+                      </tr>
+                      <tr>
+                        <td>전공</td>
+                        <td>{{mentor_info.major}}</td>
+                      </tr>
+                      <tr>
+                        <td>학년</td>
+                        <td>{{mentor_info.grade}}</td>
+                      </tr>
+                      <tr>
+                        <td>약력:</td>
+                        <td>{{mentor_info.career}}</td>
+                      </tr>
+                      <tr>
+                        <td>기타 소개:</td>
+                        <td>{{mentor_info.intro}}</td>
+                      </tr>
+                      <tr>
+                        <td>멘토 소개 사진:</td>
+                        <td>{{mentor_info.image}}</td>
+                      </tr>
+
+                    </tbody>
+                  </table>
+
+                </div>
+              </div>
+            </div>
+                <div class="panel-footer">
+
+                        <a href="{% url 'account:mentor_info_edit' %}" class="btn btn-inverted btn-bold btn-warning">수정하기</a>
+
+                </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+{% endblock %}
+
+
