@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponseRedirect
@@ -24,10 +25,10 @@ def post_by_mentor_detail(request, pk):
         if request.method == "POST":
             if not Like.objects.filter(like_user = request.user, like_post = post_by_mentor).exists():
                 Like.objects.create(like_user = request.user, like_post = post_by_mentor)
-                return redirect(mentor_list)
+                return redirect(post_by_mentor)
             else:
                 Like.objects.filter(like_user = request.user, like_post = post_by_mentor).delete()
-                return redirect(mentor_list)
+                return redirect(post_by_mentor)
         else:
             like = Like.objects.filter(like_user=request.user, like_post=post_by_mentor).exists()
             return render(request, 'mentoring/post_by_mentor_detail.html', {
@@ -97,10 +98,11 @@ def bid_by_mentee_detail(request, post_pk, pk):
 def bid_by_mentee_new(request, post_pk):
     post_by_mentor = get_object_or_404(Post_By_Mentor, pk=post_pk)
     if request.method == "POST":
-        form = Bid_By_MenteeForm(request.POST, request,FILES)
+        form = Bid_By_MenteeForm(request.POST, request.FILES)
         if form.is_valid():
             bid_by_mentee = form.save(commit=False)
             bid_by_mentee.author = request.user
+            bid_by_mentee.post_by_mentor = post_by_mentor
             bid_by_mentee.save()
             messages.success(request, '멘토링 지원이 완료되었습니다.')
             return redirect(post_by_mentor)
