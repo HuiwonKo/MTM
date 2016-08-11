@@ -53,7 +53,7 @@
             {% if post_by_mentor.author == user %}
             <h2>
             <span class="dropdown btn-group pull-right">
-                <img src="{% static 'img/edit.png' %}" style="width: 40px;" id="edit">
+                <a href="{% url 'mentoring:post_by_mentor_edit' post_by_mentor.pk %}"><img src="{% static 'img/edit.png' %}" style="width: 40px;" id="edit"></a>
                 <img src="{% static 'img/delete.png' %}" style="width: 40px;" id="delete">
             </span>
             </h2>

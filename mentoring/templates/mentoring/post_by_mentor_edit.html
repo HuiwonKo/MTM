@@ -1,0 +1,46 @@
+{% extends 'mentoring/form.html' %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+
+{% block style %}
+
+    <style>
+
+    body {
+        padding-top: 80px;
+    }
+    </style>
+{% endblock %}
+
+{% block content %}
+
+<br>
+<br>
+<br>
+<div class="container">
+    <div class="row wrap">
+        <div class="col-md-9 content">
+            <h1>멘토링 정보 수정하기</h1>
+            <br>
+            <br>
+            <br>
+            <form role="form" action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                    {% bootstrap_field form.title %}
+                    {% bootstrap_field form.capacity %}
+                    {% bootstrap_field form.hours %}
+                    {% bootstrap_field form.date%}
+                    {% bootstrap_field form.lowest_price%}
+                    {% bootstrap_field form.photo1 %}
+                    {% bootstrap_field form.intro %}
+                <button type="submit" class="btn btn-primary btn-lg">수정하기</button>
+                <br>
+                <br>
+                <br>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}
+
