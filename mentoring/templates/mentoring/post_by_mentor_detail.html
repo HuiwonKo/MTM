@@ -1,20 +1,242 @@
-    {{post.title}}
-    {{post.created_at}}
-    {{post.updated_at}}
-    {{post.author}}
-    {{post.capacity}}
-    {{post.hours}}
-    {{post.date}}
-    {{post.lowest_price}}
-    {{post.like_set.count}}
-    {{post.photo1}}
-    {{post.intro}}
 
-    {% for comment in post.comment_set.all %}
+{% extends 'mentoring/base.html' %}
+{% load bootstrap3 %}
+{% load staticfiles %}
+{% block content %}
+{% csrf_token %}
+<meta charset="utf-8">
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('{% static 'img/mentor.jpg' %}')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="page-heading mentor">
+                        <h1>mentor</h1>
+                        <hr class="small">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
 
-    {{comment.author}}
-    {{comment.content}}
-    {{comment.created_at}}
-    {{comment.updated_at}}
+    <div class="container col-md-11 col-md-offset-1">
 
-    {% endfor %}
+        {# 글 내용 부분 #}
+        <div class="row col-sm-11">
+            <h1>
+            <span>{{mentor.title}}</span>
+            {% if mentor.author == user %}
+            </h1>
+            <h2>
+            <span class="dropdown btn-group pull-right">
+                <img src="{% static 'img/edit.png' %}" style="width: 40px;" id="edit">
+                <img src="{% static 'img/delete.png' %}" style="width: 40px;" id="delete">
+            </span>
+            </h2>
+            {% endif %}
+            <p class="lead">
+                by {{mentor.author.resume.name}}
+            </p>
+            <hr>
+            <p class = "lead">
+                <i class="fa fa-clock-o"> Posted on {{mentor.created_at|date:'Y-m-d H:i'}}</i><br>
+                <i class="fa fa-refresh"> Last updated on {{mentor.updated_at|date:'Y-m-d H:i'}}</i>
+            </p>
+            <hr>
+            <img src="{{mentor.image.url}}" class="img-responsive center-block" width="80%">
+            <hr>
+            <p class="lead">{{mentor.contents}}</p>
+            <hr>
+            <form action="" method="POST" enctype="multipart/form-data" class="text-center">
+                {% csrf_token %}
+                {% if vote %}
+                    <button type="submit" class="btn btn-danger btn-lg" data-toggle="Modal" href="bid_by_mentee_form.html" data-target="#BidModal" >투표취소 <span class="badge">{{mentor.vote_set.count}}</span></button>
+                {% else %}
+                    <button type="submit" class="btn btn-primary btn-lg" onclick="window.open('bid_by_mentee_form.html','win','width=650,height=400')";>투표하기 <span class="badge">{{mentor.vote_set.count}}</span></button>
+                {% endif %}
+            </form>
+            <hr>
+        </div>
+
+
+        <!-- <div class="row col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading text-center">{{mentor.title}}</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            {{mentor.contents}}
+                        </div>
+                    </div>
+                    <hr class="small left" style="margin: 25px auto;">
+                    <div class="row">
+                        <img src="{{mentor.image.url}}" class="img-responsive center-block" width="80%" >
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div class="row small text-center">
+                        작성일시: {{mentor.created_at|date:'Y-m-d H:i'}}
+                    </div>
+                    <div class="row small text-center">
+                        마지막 수정일시: {{mentor.updated_at|date:'Y-m-d H:i'}}
+                    </div>
+                    {% if mentor.author == user %}
+                    <div class="row">
+                        <div class="col-xs-3 col-xs-offset-3 text-right">
+                            <a class="btn btn-xs btn-primary" href="{% url 'mentor:mentor_edit' mentor.pk %}">수정</a>
+                        </div>
+                        <div class="col-xs-3">
+                            <a class="btn btn-xs btn-danger" href="{% url 'mentor:mentor_del' mentor.pk %}">삭제</a>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div> -->
+
+    {# 댓글 다는 부분 #}
+        <div class="row col-sm-9 col-md-offset-1">
+            <section class="comment">
+                <article class="row">
+                    <div class="col-sm-2 hidden-xs">
+                        {# 개인 프로필 사진 넣기 #}
+                        <figure class="thumbnail user-photo">
+                            {% if account.extra_data.properties.profile_image %}
+                                    <img src = {{account.extra_data.properties.profile_image}}>
+                            {% else %}
+                                    <img src = "https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+                            {% endif %}
+                            </figure>
+                    </div>
+                    <div class="col-sm-9">
+                        <div class="comment-list">
+                            <div class="panel panel-default arrow left">
+                                <div class="panel-body">
+                                    {# <form action="" method="POST" enctype="multipart/form-data"> #}
+                                        {% for field in form %}
+                                                {% bootstrap_field field %}
+                                        {% endfor %}
+                                        <div id="results"></div>
+                                        <div style="display:none;" id="comment-footer">
+                                            <button class="btn btn-primary btn-xs pull-right add_comment">확인</button>
+                                            <span class="pull-right">&nbsp;</span>
+                                            <button class="btn btn-danger btn-xs pull-right form-cancel">취소</button>
+                                        </div>
+                                    {# </form> #}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </section>
+            <hr>
+        </div>
+
+    {# 댓글 보는 부분 #}
+    <div class="row col-sm-9 col-md-offset-1 comment-block">
+        {% if comments %}
+        <section class="comment-list">
+            {% for comment in comments %}
+                <article class="row">
+                    <div class="col-sm-2 hidden-xs">
+                        {# ---프로필 사진이 들어갈 곳--- #}
+                        <figure class="thumbnail user-photo">
+                            {% if comment.author.socialaccount_set.all %}
+                                {%for account in comment.author.socialaccount_set.all%}
+                                    {% if account.extra_data.properties.profile_image %}
+                                        <img src = {{account.extra_data.properties.profile_image}}>
+                                    {% else %}
+                                        <img src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+                                    {%endif%}
+                                {% endfor %}
+                            {% else %}
+                                <img src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png" >
+                            {%endif%}
+                        </figure>
+                    </div>
+                    <div class="col-sm-9">
+                        <div class="panel panel-default arrow left">
+                            <div class="panel-body no-padding">
+                                <header class="text-left">
+                                    <div class="comment-user">
+                                    {%if comment.author == user %}
+                                    <div class="dropdown btn-group pull-right">
+                                        <i class="fa fa-bars" aria-hidden="true" data-toggle="dropdown"></i>
+                                        <ul class="dropdown-menu" style="min-width: 30px">
+                                        <li><a href="javascript:void(0)" class="a_comment_edit">수정</a></li>
+                                        <li><a href="{% url 'mentor:comment_del' mentor.pk comment.pk %}">삭제</a></li>
+                                        </ul>
+                                    </div>
+                                    {% endif %}
+                                    <i class="fa fa-user"></i>
+                                        <strong>
+                                        {% if comment.author.socialaccount_set.all %}
+                                            {%for account in comment.author.socialaccount_set.all%}
+                                                {% if account.provider == "facebook" %}
+                                                    {{comment.author.last_name}}{{comment.author.first_name}}
+                                                {% elif account.provider == "kakao" %}
+                                                    {{comment.author.first_name}}
+                                                {%endif%}
+                                            {% endfor %}
+                                        {% else %}
+                                            {{comment.author}}
+                                        {% endif %}
+                                        </strong>
+                                    </div>
+                                    <time class="comment-date small text-muted">
+                                        <i class="fa fa-clock-o"></i>
+                                        {{comment.elapsed_time}}
+                                        {% if comment.created_at|date:'YmdHms' != comment.updated_at|date:'YmdHms' %}
+                                        (수정됨)
+                                        {% endif %}
+                                    </time>
+                                </header>
+                                {# <form action="" method="POST" enctype="multipart/form-data"> #}
+                                    <input type="hidden" class="comment-pk" value="{{comment.pk}}">
+                                    <div class="comment-post">
+                                        <span class="comment-content">{{comment.contents}}</span>
+                                    </div>
+                                    <div class="comment-post-buttons" style="display:none">
+                                        <button class="btn btn-primary btn-xs edit-submit">확인</button> <button class="btn btn-danger btn-xs edit-cancel">취소</button>
+                                    </div>
+                                {# </form> #}
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            {% endfor %}
+        </section>
+            {% else %}
+                <div class="row col-xs-12">
+                    댓글없음
+                </div>
+        {% endif %}
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block script %}
+    <script>
+        function edit(){
+            return "{% static 'js/comment_edit.js' %}"
+        }
+
+        $(document).ready(function (){
+            $('.page-heading.mentor').on('click', function (){
+                location.href = '/mentor/'
+            })
+            $('#edit').on('click', function (){
+                location.href = "{% url 'mentoring:post_by_mentor_edit' mentor.pk %}"
+            })
+            $('#delete').on('click', function (){
+                if (confirm('삭제하시겠습니까?'))
+                    location.href = "{% url 'mentor:mentor_del' mentor.pk %}"
+            })
+        })
+    </script>
+    <script src="{% static 'js/comment_edit.js' %}"></script>
+    <script src="{% static 'js/comment_add.js' %}"></script>
+
+{% endblock %}
