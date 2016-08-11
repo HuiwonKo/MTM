@@ -22,6 +22,22 @@ GPA_CHOICES = (
     ('아주 낮은 편','아주 낮은 편'),
 )
 
+YEAR_CHOICES = (
+    ('초등 1학년', '초등 1학년'),
+    ('초등 2학년', '초등 2학년'),
+    ('초등 3학년', '초등 3학년'),
+    ('초등 4학년', '초등 4학년'),
+    ('초등 5학년', '초등 5학년'),
+    ('초등 6학년', '초등 6학년'),
+    ('중등 1학년', '중등 1학년'),
+    ('중등 2학년', '중등 2학년'),
+    ('중등 3학년', '중등 3학년'),
+    ('고등 1학년', '고등 1학년'),
+    ('고등 2학년', '고등 2학년'),
+    ('고등 3학년', '고등 3학년'),
+    ('N수생', 'N수생'),
+)
+
 class Post_By_Mentee(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     title = models.CharField(max_length=300, verbose_name='제목')
@@ -29,11 +45,11 @@ class Post_By_Mentee(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     gender = models.CharField(max_length=20,choices=GENDER_CHOICES,default='',verbose_name='원하는 멘토 성별')
     lnglat = models.CharField(max_length=20, verbose_name='멘티 위치')
-    major = models.CharField(max_length=20, choices=MAJOR_CHOICES, default='',verbose_name='전공')
-    grade = models.CharField(max_length=40, choices=GRADE_CHOICES, default='', verbose_name='학년')
+    major = models.CharField(max_length=20, choices=MAJOR_CHOICES, default='',verbose_name='원하는 멘토 전공')
+    year = models.CharField(max_length=40, choices=YEAR_CHOICES, default='', verbose_name='학년')
     GPA = models.CharField(max_length=40, choices=GPA_CHOICES,default='',verbose_name='성취도')
     hours = models.IntegerField(default=0, verbose_name='멘토링 진행시간')
-    date = models.DateTimeField(verbose_name='멘토링 날짜')
+    date = models.DateTimeField(default='yyyy-mm-dd 형식으로 써주세요.', verbose_name='멘토링 날짜')
     price = models.IntegerField(default=0, verbose_name='희망 수업료')
     intro = models.TextField(max_length=300, verbose_name='기타 소개')
 

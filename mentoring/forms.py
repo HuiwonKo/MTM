@@ -5,7 +5,7 @@ from .models import Post_By_Mentor, Post_By_Mentee, Bid_By_Mentee, Bid_By_Mentor
 class Post_By_MenteeForm(forms.ModelForm):
     class Meta:
         model = Post_By_Mentee
-        fields = ['title', 'gender', 'lnglat', 'major', 'grade', 'GPA', 'hours', 'date', 'price', 'intro']
+        fields = ['title', 'gender', 'lnglat', 'major', 'year', 'GPA', 'hours', 'date', 'price', 'intro']
 
 
 class Post_By_MentorForm(forms.ModelForm):

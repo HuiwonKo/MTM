@@ -1,4 +1,82 @@
-{% for mentee in mentee_list %}
-    {{mentee.title}}
-    {{mentee.grade}}    
-{% endfor %}
+{% extends 'mentoring/base.html' %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+{% load thumbnail %}
+{% block content %}
+<!-- Page Header -->
+<!-- Set your background phage for this header on the line below. -->
+<header class="intro-header" style="background-image: url('{% static 'img/post-bg.jpg' %}')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="page-heading mentee">
+                    <h1>Mentee list</h1>
+                    <hr class="small">
+                    <span class="subheading">원하는 멘티를 찾으세요.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div class="container-fluid">
+
+        <div class="col-md-offset-1 col-md-10 col-sm-12">
+            {%if user.is_authenticated %}
+            <div class="text-right">
+                <a href="{% url 'mentoring:post_by_mentee_new' %}" class="btn btn-inverted btn-success">멘티로 등록하기</a>
+            </div>
+            <br>
+            <br>
+            {% endif %}
+
+
+             <div class="show-like-table col-sm-12">
+
+                {% for mentee in mentee_list %}
+                <div class="col-md-4 col-sm-6 col-xs-12 wow slideInUp" data-wow-delay="0.1s">
+
+                    <div class="card">
+                        <div class="card-image reveal-dim">
+                            <div class="reveal-hide reveal-content">
+                              <div class="reveal-center">
+                                <span>
+                                  <a href="{% url 'mentoring:post_by_mentee_detail' mentee.pk %}" class="btn btn-inverted btn-bold btn-primary">Read More</a>
+                                </span>
+                              </div>
+                            </div>
+                            <img class="reveal-show img-responsive col-xs-12" src="https://static.techinasia.com/wp-content/themes/techinasia/img/icon-defaultprofile.png"/>
+                        </div>
+
+                          <div class="card-content">
+                             <div class="card-header">{{mentee.author}}</div>
+                             <div class="card-meta">멘토링 날짜: {{mentee.date|date:'Y-m-d H:m'}}</div>
+
+                          </div>
+                          <div class="card-extra card-content">
+                            <span><i class="fa fa-users"></i> 좋아요:{{mentee.author.resume.name}}&nbsp{{mentee.vote_set.count}} </span>
+                          </div>
+                    </div>
+                </div>
+
+            {% endfor %}
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+{% endblock %}
+{% block script %}
+<script>
+    new WOW().init();
+    $(document).ready(function (){
+        $('.page-heading.mentee').on('click', function (){
+            location.href='/mentee/'
+        })
+    })
+</script>
+{% endblock %}

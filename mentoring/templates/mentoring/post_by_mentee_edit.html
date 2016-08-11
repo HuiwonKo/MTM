@@ -20,22 +20,22 @@
 <div class="container">
     <div class="row wrap">
         <div class="col-md-9 content">
-            <h1>멘티 등록하기</h1>
+            <h1>멘토링 정보 수정하기</h1>
             <br>
             <br>
             <br>
             <form role="form" action="" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
-                    {% bootstrap_field form.title %}
-                    {% bootstrap_field form.year %}
-                    {% bootstrap_field form.GPA %}
-                    {% bootstrap_field form.gender %}
-                    {% bootstrap_field form.major %}
+                    {% bootstrap_field form.title%}
+                    {% bootstrap_field form.gender%}
+                    {% bootstrap_field form.major%}
+                    {% bootstrap_field form.year%}
+                    {% bootstrap_field form.GPA%}
                     {% bootstrap_field form.hours %}
                     {% bootstrap_field form.date %}
                     {% bootstrap_field form.price %}
                     {% bootstrap_field form.intro %}
-                <button type="submit" class="btn btn-primary btn-lg">등록하기</button>
+                <button type="submit" class="btn btn-primary btn-lg">수정하기</button>
                 <br>
                 <br>
                 <br>

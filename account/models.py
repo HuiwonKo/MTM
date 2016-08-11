@@ -66,6 +66,7 @@ GRADE_CHOICES = (
 )
 
 
+
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     #mentor_info = models.OneToOneField(MentorInfo, null=True)

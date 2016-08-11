@@ -159,6 +159,7 @@ def post_by_mentee_detail(request, pk):
         'post' : post_by_mentee,
     })
 
+
 @login_required
 def post_by_mentee_new(request):
     if request.method == "POST":
@@ -167,7 +168,7 @@ def post_by_mentee_new(request):
             post_by_mentee = form.save(commit=False)
             post_by_mentee.author = request.user
             post_by_mentee.save()
-            return redirect(post_by_mentee)
+            return redirect('mentoring:mentee_list')
     else:
         form = Post_By_MenteeForm()
     return render(request, 'mentoring/post_by_mentee_form.html', {

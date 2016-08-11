@@ -51,7 +51,7 @@
                             <a href="{% url 'mentoring:mentor_list' %}">멘토 찾기</a>
                         </li>
                         <li>
-                            <a href="#">멘티 찾기</a>
+                            <a href="{% url 'mentoring:mentee_list' %}">멘티 찾기</a>
                         </li>
                         {%if not user.is_authenticated %}
                         <li>
