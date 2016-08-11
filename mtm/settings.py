@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'mtm',
     'bootstrap3',
     'sorl.thumbnail',
-    'registration',
 
 ]
 

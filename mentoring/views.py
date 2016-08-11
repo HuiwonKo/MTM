@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
+from django.http import HttpResponseRedirect
 
 from .match import auction_algo
 from .models import Post_By_Mentor, Post_By_Mentee, Bid_By_Mentee, Bid_By_Mentor, Comment, Like, Matched_Bid_By_Mentee, Matched_Bid_By_Mentor
@@ -22,10 +23,10 @@ def post_by_mentor_detail(request, pk):
         if request.method == "POST":
             if not Like.objects.filter(like_user = request.user, like_post = post_by_mentor).exists():
                 Like.objects.create(like_user = request.user, like_post = post_by_mentor)
-                return redirect(post_by_mentor)
+                return redirect('mentor_list')
             else:
                 Like.objects.filter(like_user = request.user, like_post = post_by_mentor).delete()
-                return redirect(post_by_mentor)
+                return redirect('mentor_list')
         else:
             like = Like.objects.filter(like_user=request.user, like_post=post_by_mentor).exists()
             return render(request, 'mentoring/post_by_mentor_detail.html', {
@@ -45,8 +46,7 @@ def post_by_mentor_new(request):
             post_by_mentor = form.save(commit=False)
             post_by_mentor.author = request.user
             post_by_mentor.save()
-            messages.success(request, '새로운 멘토링 포스트가 등록되었습니다.')
-            return redirect(post_by_mentor)
+            return redirect('mentoring:mentor_list')
     else:
         form = Post_By_MentorForm()
     return render(request, 'mentoring/post_by_mentor_form.html', {

@@ -5,7 +5,7 @@
 {% block content %}
 <!-- Page Header -->
 <!-- Set your background phage for this header on the line below. -->
-<header class="intro-header" style="background-phage: url('{% static 'phg/home-bg.jpg' %}')">
+<header class="intro-header" style="background-image: url('{% static 'img/home-bg.jpg' %}')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -19,79 +19,49 @@
     </div>
 </header>
 
-<div class="card">
-  <div class="card-phage reveal-dph">
-    <div class="reveal-hide reveal-content">
-      <div class="reveal-center">
-        <span>
-          <a class="btn btn-inverted btn-bold btn-prphary">Add Friend</a>
-        </span>
-      </div>
-    </div>
-    <img class="reveal-show" src="phages/avatar/big/elliot.jpg">
-  </div>
-  <div class="card-content">
-    <a class="card-header">Elliot</a>
-    <div class="card-meta">Joined at 2014</div>
-  </div>
-  <div class="card-extra card-content">
-    <a><i class="fa fa-users"></i> 2 Friends </a>
-  </div>
-</div>
 
-
-
-<!-- Main Content -->
 <div class="container-fluid">
 
         <div class="col-md-offset-1 col-md-10 col-sm-12">
             {%if user.is_authenticated %}
             <div class="text-right">
-                <a href="{% url 'mentoring:post_by_mentor_new' %}"><h4>[멘토로 등록하기]</h4></a>
+                <a href="{% url 'mentoring:post_by_mentor_new' %}" class="btn btn-inverted btn-success">멘토로 등록하기</a>
             </div>
+            <br>
+            <br>
             {% endif %}
 
-            <div class="show-like-table col-sm-12">
+
+             <div class="show-like-table col-sm-12">
 
                 {% for mentor in mentor_list %}
                 <div class="col-md-4 col-sm-6 col-xs-12 wow slideInUp" data-wow-delay="0.1s">
-                    <a href="{% url 'mentoring:post_by_mentor_detail' mentor.pk %}">
+
                     <div class="card">
-                      <div class="card-image reveal-dim">
+                        <div class="card-image reveal-dim">
+                            <div class="reveal-hide reveal-content">
+                              <div class="reveal-center">
+                                <span>
+                                  <a href="{% url 'mentoring:post_by_mentor_detail' mentor.pk %}" class="btn btn-inverted btn-bold btn-primary">Read More</a>
+                                </span>
+                              </div>
+                            </div>
+                            <img class="reveal-show img-responsive col-xs-12" src="{{mentor.photo1.url}}"/>
+                        </div>
 
-                        <div class="reveal-hide reveal-content">
-                          <div class="reveal-center">
-                            <span>
-                              <a class="btn btn-inverted btn-bold btn-primary">read more</a>
-                            </span>
+                          <div class="card-content">
+                             <div class="card-header">{{mentor.author}}</div>
+                             <div class="card-meta">멘토링 날짜: {{mentor.date|date:'Y-m-d H:m'}}</div>
+
                           </div>
-                         </div>
-
-                            {% if mentor.photo %}
-                            <img class="reveal-show img-responsive col-xs-12" src="{{photo.url}}">
-
-
-                            {% else %}
-                            <h3>{{mentor.title}}</h3>
-                            {% endif %}
-
-
-
-                      </div>
-
-                      <div class="card-content">
-                        <h3>{{mentor.title}}</h3>
-                            <div class="wrap card-extra card-content">
-                                좋아요:{{mentor.author.resume.name}}&nbsp{{mentor.vote_set.count}}
-                            </div>
-                            <div class="span12">
-                                created_at: {{mentor.updated_at|date:'Y-m-d H:m'}}
-                            </div>
-                      </div>
+                          <div class="card-extra card-content">
+                            <span><i class="fa fa-users"></i> 좋아요:{{mentor.author.resume.name}}&nbsp{{mentor.vote_set.count}} </span>
+                          </div>
                     </div>
-                    </a>
                 </div>
+
             {% endfor %}
+
             </div>
 
         </div>
