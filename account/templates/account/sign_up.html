@@ -1,60 +1,77 @@
 {% extends 'mentoring/base.html' %}
 {% load staticfiles %}
 {% load bootstrap3 %}
+
+
+
+
+{% block style %}
+
+    <style>
+    .text-align-center {
+        text-align:center;
+    }
+    body {
+        padding-top: 80px;
+    }
+    </style>
+    <style type="text/css">
+    .radio {
+        display: inline-block;
+        border-radius: 3px;
+        margin: 10px 1px;
+        border: 1px solid #aaa;
+    }
+    .radio:hover, .radio:focus, .radio:active {
+        background-color: #aaa;
+    }
+    .radio label {
+        padding:5px;
+    }
+    </style>
+
+{% endblock %}
+
+
 {% block content %}
-<br>
-<br>
-<br>
 
-
-<div class="login">
-        <div class="login-screen">
-          <div class="login-icon">
-            <img src="images/login/icon.png" alt="Welcome to Mail App" />
-            <h4>Welcome to <small>Mail App</small></h4>
-          </div>
-
-          <div class="login-form">
-            <div class="form-group">
-              <input type="text" class="form-control login-field" value="" placeholder="Enter your name" id="login-name" />
-              <label class="login-field-icon fui-user" for="login-name"></label>
-            </div>
-
-
-            <div class="form-group">
-              <input type="password" class="form-control login-field" value="" placeholder="Password" id="login-pass" />
-              <label class="login-field-icon fui-lock" for="login-pass"></label>
-            </div>
-
-            <a class="btn btn-primary btn-lg btn-block" href="#">Login</a>
-            <a class="login-link" href="#">Lost your password?</a>
-          </div>
-        </div>
-      </div>
-
-<div class = "container">
-    <div class = "row">
-        <div class = "col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <form action="" method = "post" enctype="multipart/form-data">
-                {% csrf_token %}
-                <div class = "panel panel-default">
-                    <div class = "panel-heading"></div>
-                    <div class = "panel-body">
-                        {% bootstrap_form form %}
-                    </div>
-                    <div class = "panel-footer text-right">
-                        <input type = "submit" class = "btn btn-default" value = "로그인"/>
-                       <br>
-                       {%if form.non_field_errors%}
-                       <div>
-                       <h5>아이디/패스워드를 정확히 입력하세요.</h5>
-                       </div>
-                       {% endif %}
-                    </div>
-                    </div>
-                </div>
-            </form>
-        </div>
+<div class="container">
+    <div class="row">
+    <div class="col-sm-4 col-sm-offset-4"style="margin-top: 3%;margin-bottom: 3%;">
+        <p class="lead text-align-center"><strong>회원 가입</strong></p>
+        <form method="post" action="" enctype="multipart/form-data">{% csrf_token %}
+            {% bootstrap_form form %}
+            {% buttons %}
+                <button type="submit" class="btn btn-primary pull-right">{% bootstrap_icon "ok-sign" %} 확인 </button>
+            {% endbuttons %}
+        </form>
+    </div>
     </div>
 </div>
+
+{% endblock %}
+
+{% block script %}
+<script>
+$(document).ready(function(){
+    var address = $('#id_address').val();
+    $('#map_search').children('input').val(address);
+    $('#map_search').children('input').click(function(){
+        var address = $('#id_address').val();
+        $(this).val(address);
+        alert('검색 버튼을 꼭 눌러서 확인해주세요');
+    });
+    $('input:checked').parent().css('background-color', '#aaa');
+    function selectedRadioColor(radioInput){
+        $(radioInput).on('change', function() {
+        $(radioInput).parent().css('background-color', 'white');
+        $(this).parent().css('background-color', '#aaa');
+        });
+    };
+    selectedRadioColor('#id_major input');
+    selectedRadioColor('#id_admission_type input');
+});
+</script>
+
+
 {% endblock %}

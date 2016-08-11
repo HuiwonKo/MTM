@@ -12,22 +12,20 @@ from .forms import ProfileForm, ProfileUpdateForm, MentorInfoForm
 
 
 def sign_up(request):
+    form = ProfileForm(request.POST)
     #register to users
     if request.user.is_anonymous():
         if request.method == "POST":
-            form = ProfileForm(request.POST)
             if form.is_valid():
                 user = form.save()
                 authenticated_user = authenticate(username=form.cleaned_data['username'],password=form.cleaned_data['password1'])
                 login(request,authenticated_user)
                 messages.success(request,'환영합니다') #로그인 완료
-                return redirect(settings.LOGIN_URL)
+                return redirect('/')
         else:
             form = ProfileForm()
-            return render(request,"account/sign_up.html",{
-                'form':form,
-                'user':user,
-               })
+
+        return render(request,"account/sign_up.html",{'form':form,})
     else:
         messages.info(request,'이미 로그인되어있습니다. 로그아웃 이후 실행해주세요.')
         return redirect('/')
