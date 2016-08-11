@@ -43,7 +43,7 @@ def profile(request):
     return render(request, 'account/profile.html', {
         'user':user,
         'profile' : profile,
-        'form' : form,
+
     })
 
 @login_required
@@ -74,12 +74,12 @@ def mentor_info_edit(request):
     user = get_object_or_404(User, pk=request.user.pk)
 
     if request.method == 'POST':
-        form = MentorInfoUpdateForm(request.POST, instance = user.profile)
+        form = MentorInfoForm(request.POST, instance = user.profile)
         if form.is_valid():
             form.save()
             return redirect('mentor_info_edit')
     else:
-        form = MentorUpdateForm(request.POST, instance = user.profile)
+        form = MentorInfoForm(request.POST, instance = user.profile)
     return render(request, 'account/mentor_info_edit.html',{'user':user, 'form':form,})
 
 @login_required

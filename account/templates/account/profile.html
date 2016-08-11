@@ -38,27 +38,10 @@
                         <td>이름:</td>
                         <td>{{user.profile.name}}</td>
                       </tr>
-                      <tr>
-                        <td>비밀번호</td>
-                        <td>********</td>
-                      </tr>
-                      <tr>
 
+                      <tr>
                         <td>전화번호</td>
                         <td>{{user.profile.phone}}</td>
-                      </tr>
-                      <tr>
-                        <td>학교</td>
-                        <td>서울대학교</td>
-                      </tr>
-                      <tr>
-                        <td>학과</td>
-                        <td>경제학부</td>
-                      </tr>
-                        <td>학년</td>
-                        <td>123-4567-890(Landline)<br><br>555-4567-890(Mobile)
-                        </td>
-
                       </tr>
 
                     </tbody>
@@ -72,7 +55,9 @@
                         <a href="{% url 'account:profile_edit' %}" class="btn btn-inverted btn-bold btn-warning">수정하기</a>
 
                 </div>
-
+                <<div>
+                  <a href="{% url 'account:mentor_info' %}">mentor_info로 이동</a>
+                </div>
           </div>
         </div>
       </div>
