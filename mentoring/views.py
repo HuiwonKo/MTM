@@ -292,9 +292,12 @@ def comment_edit(request, post_pk, pk):
             comment.author = request.user
             comment.save()
             messages.success(request, '댓글 내용이 수정되었습니다.')
-            return redirect('mentoring/comment_form.html', {
-                'form' : form,
-            })
+            return redirect(comment.post)
+    else:
+        form = CommentForm(instance=comment)
+    return render(request, 'mentoring/comment_form.html', {
+        'form' : form,
+        })
 
 @login_required
 def comment_delete(request, post_pk, pk):
@@ -302,7 +305,7 @@ def comment_delete(request, post_pk, pk):
     comment = get_object_or_404(Comment, pk=pk)
     if request.user != comment.author:
         messages.error(request, "자신이 작성한 댓글만 삭제할 수 있습니다.")
-        return redirect(comment)
+        return redirect(post)
     comment.delete()
     messages.error(request, "해당 댓글이 삭제되었습니다.")
     return redirect(post)
