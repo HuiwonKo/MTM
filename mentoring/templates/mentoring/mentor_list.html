@@ -4,8 +4,8 @@
 {% load thumbnail %}
 {% block content %}
 <!-- Page Header -->
-<!-- Set your background image for this header on the line below. -->
-<header class="intro-header" style="background-image: url('{% static 'img/home-bg.jpg' %}')">
+<!-- Set your background phage for this header on the line below. -->
+<header class="intro-header" style="background-phage: url('{% static 'phg/home-bg.jpg' %}')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -18,6 +18,29 @@
         </div>
     </div>
 </header>
+
+<div class="card">
+  <div class="card-phage reveal-dph">
+    <div class="reveal-hide reveal-content">
+      <div class="reveal-center">
+        <span>
+          <a class="btn btn-inverted btn-bold btn-prphary">Add Friend</a>
+        </span>
+      </div>
+    </div>
+    <img class="reveal-show" src="phages/avatar/big/elliot.jpg">
+  </div>
+  <div class="card-content">
+    <a class="card-header">Elliot</a>
+    <div class="card-meta">Joined at 2014</div>
+  </div>
+  <div class="card-extra card-content">
+    <a><i class="fa fa-users"></i> 2 Friends </a>
+  </div>
+</div>
+
+
+
 <!-- Main Content -->
 <div class="container-fluid">
 
@@ -30,60 +53,47 @@
 
             <div class="show-like-table col-sm-12">
 
+                {% for mentor in mentor_list %}
+                <div class="col-md-4 col-sm-6 col-xs-12 wow slideInUp" data-wow-delay="0.1s">
+                    <a href="{% url 'mentoring:post_by_mentor_detail' mentor.pk %}">
+                    <div class="card">
+                      <div class="card-image reveal-dim">
 
-            {% for mentor in mentor_list %}
-            <div class="col-md-4 col-sm-6 col-xs-12 wow slideInUp" data-wow-delay="0.1s">
-                <a href="{% url 'mentoring:post_by_mentor_detail' mentor.pk %}">
-                <div class="card">
-                  <div class="card-image reveal-dim">
-                    <div class="reveal-hide reveal-content">
-                      <div class="reveal-center">
-                        <span>
-                          <a class="btn btn-inverted btn-bold btn-primary">Add Friend</a>
-                        </span>
+                        <div class="reveal-hide reveal-content">
+                          <div class="reveal-center">
+                            <span>
+                              <a class="btn btn-inverted btn-bold btn-primary">read more</a>
+                            </span>
+                          </div>
+                         </div>
+
+                            {% if mentor.photo %}
+                            <img class="reveal-show img-responsive col-xs-12" src="{{photo.url}}">
+
+
+                            {% else %}
+                            <h3>{{mentor.title}}</h3>
+                            {% endif %}
+
+
+
+                      </div>
+
+                      <div class="card-content">
+                        <h3>{{mentor.title}}</h3>
+                            <div class="wrap card-extra card-content">
+                                좋아요:{{mentor.author.resume.name}}&nbsp{{mentor.vote_set.count}}
+                            </div>
+                            <div class="span12">
+                                created_at: {{mentor.updated_at|date:'Y-m-d H:m'}}
+                            </div>
                       </div>
                     </div>
-                    <img class="reveal-show" src="https://static.techinasia.com/wp-content/themes/techinasia/img/icon-defaultprofile.png">
-                  </div>
-                  <div class="card-content">
-                    <a class="card-header">Elliot</a>
-                    <div class="card-meta">Joined at 2014</div>
-                  </div>
-                  <div class="card-extra card-content">
-                    <a><i class="fa fa-users"></i> 2 Friends </a>
-                  </div>
+                    </a>
                 </div>
-                    <div class="card">
-                        <div class="card-image">
-                        {% if mentor.image %}
-                        {% thumbnail mentor.image "150x100" crop="center" as im %}
-                        <img src="{{im.url}}" width="{{im.width}}" height="{{im.height}}" class="img-responsive col-xs-12" alt="">
-                        {% endthumbnail %}
-                        {% else %}
-                        <h3>{{mentor.title}}</h3>
-                            {% endif %}
-                        </div>
-
-                        <div class="card-content">
-                            <h3>{{mentor.title}}</h3>
-                            <div class="wrap card-extra card-content">
-                                좋아요:
-                            {{mentor.author.resume.name}}&nbsp{{mentor.vote_set.count}}
-                            </div>
-                            <div class="span12">created_at: {{mentor.updated_at|date:'Y-m-d H:m'}}</div>
-                        </div>
-                    </div>
-                </a>
-            </div>
             {% endfor %}
             </div>
-            <!-- Pager
-             <ul class="pager">
-                 <li class="next">
-                     <a href="#">Older Posts &rarr;</a>
-                 </li>
-             </ul>
-             -->
+
         </div>
     </div>
 
