@@ -22,7 +22,6 @@
                 </div>
             </div>
         </div>
-         <a class="control-btn fui-arrow-down" href="#"> </a>
     </header>
 
 
@@ -33,13 +32,12 @@
                 <div>
 
                     <div class="container">
-                        <h3>Take a look in our awesome product</h3>
+                        <h3>MTM은 무료로 멘토와 멘티를 연결해주는 멘토링 중개 플랫폼입니다.</h3>
 
                         <div class="row v-center">
                             <div class="col-sm-3">
                                 <div>
-                                    Of course we haven’t forgotten about the responsive layout. Create a website with full mobile
-                                    support.
+                                    수수료 걱정없이 마음껏 <br>서비스를 이용하세요.
                                 </div>
                             </div>
                             <div class="col-sm-4">
@@ -54,10 +52,10 @@
                             </div>
                             <div class="col-sm-3">
                                 <div class="col-sm-offset-2">
-                                    <h6>Responsive Layout</h6>
-                                    Of course we haven’t forgotten about the responsive layout. Full mobile support.
-                                    <h6>Retina Ready</h6>
-                                    Startup Framework works fine on devices supporting Retina Display. Feel the clarity!
+                                    <h6>For mentor</h6>
+                                    소개글을 등록하고 멘티를 찾아보세요.
+                                    <h6>For mentee</h6>
+                                    다양한 전공의 멘토들을 만나보세요.
                                 </div>
                             </div>
                         </div>
@@ -81,16 +79,19 @@
             <section class="content-8 v-center">
                 <div>
                     <div class="container">
-                        <img src="{% static 'img/img-1@2x.png' %}" width="397" height="193" alt="">
+                        <img src="{% static 'img/bid.jpg' %}"  alt="">
 
-                        <h3>Take a look to our amazing Kit</h3>
+                        <h3>기존 멘토링 서비스와 차별화된 가격 선정 방식 </h3>
 
                         <div class="row">
                             <div class="col-sm-6 col-sm-offset-3">
-                                <p>We have a great surprise for Designmodo fans – our first free HTML user interface kit.
-                                    Flat UI Free is made on the basis of Twitter Bootstrap in a stunning flat-style.
+                                <p>MTM은 그룹경매 방식으로 멘토링 비용을 결정합니다. <br>
+
+                                멘토링 대상이 3명 한정이라면, 멘토링 신청자들의 지불의향 가격순으로 3명의 멘티들을 선정합니다.<br>
+                                단, 멘티들이 제시한 가격 중 가장 낮은 가격으로 최종 멘토링 비용이 책정됩니다
+
                                 </p>
-                                <a class="btn btn-large btn-clear" href="#">TRY IT NOW</a>
+                                <a class="btn btn-large btn-clear" href="{% url 'account:login' %}?next={{request.path}}">시작하기</a>
                             </div>
                         </div>
                     </div>
@@ -98,14 +99,13 @@
             </section>
 
             <!-- content-23  -->
-            <section class="content-23  v-center bg-midnight-blue">
-                <div id="bgVideo" class="background"></div>
+            <section class="content-23  v-center" style="background-image: url('{% static 'img/comp.jpg'%}')">
                 <div>
                     <div class="container">
                         <div class="hero-unit">
-                            <h1>Find a perfect suit for
+                            <h1>자신에게 맞는 대학생
                             <br class="hidden-phone">
-                            your startup</h1>
+                            멘토를 찾아 만나보세요.</h1>
                         </div>
                     </div>
                 </div>
@@ -116,15 +116,14 @@
             <section class="content-8 v-center">
                 <div>
                     <div class="container">
-                        <img width="380" height="187" alt="" src="{% static 'img/ticket-red@2x.png' %}"/>
-                        <h3>Twenty Five Awesome Samples</h3>
+                        <img alt="" src="{% static 'icons/card@2x.png' %}"/>
+                        <h3>MTM은 무료 서비스입니다. </h3>
                         <div class="row">
                             <div class="col-sm-6 col-sm-offset-3">
                                 <p>
-                                    The most important part of the Startup Framework is the samples.
-                                    The samples form a set of 25 usable pages or you can add new blocks from UI Kit.
+                                    중개 수수료 부담없이 마음껏 서비스를 이용하세요.
                                 </p>
-                                <a class="btn btn-large btn-clear" href="#">TRY IT NOW</a>
+                                <a class="btn btn-large btn-clear" href="{% url 'mentoring:mentor_list' %}?next={{request.path}}">살펴보기</a>
                             </div>
                         </div>
                     </div>
@@ -134,8 +133,8 @@
             <!-- content-11  -->
             <section class="content-11">
                 <div class="container">
-                    <span>You have the design, you have the code</span>
-                    <a class="btn btn-large btn-danger" href="#">TRY IT NOW</a>
+                    <span>Try it now!</span>
+                    <a class="btn btn-large btn-danger" href="{% url 'account:login' %}?next={{request.path}}">회원가입</a>
                 </div>
             </section>
 
