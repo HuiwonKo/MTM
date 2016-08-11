@@ -76,17 +76,12 @@
                 <i class="fa fa-refresh"> Last updated on {{post_by_mentor.updated_at|date:'Y-m-d H:i'}}</i>
             </p>
             <hr>
-            <img src="{{mentor.image.url}}" class="img-responsive center-block" width="80%">
-            <hr>
-            <p class="lead">{{mentor.contents}}</p>
-            <hr>
-            <form action="" method="POST" enctype="multipart/form-data" class="text-center">
+
+            <form method="POST" enctype="multipart/form-data" class="text-center">
                 {% csrf_token %}
-                {% if vote %}
-                    <button type="submit" class="btn btn-danger btn-lg" data-toggle="Modal" href="bid_by_mentee_form.html" data-target="#BidModal" >투표취소 <span class="badge">{{mentor.vote_set.count}}</span></button>
-                {% else %}
-                    <button type="submit" class="btn btn-primary btn-lg" onclick="window.open('bid_by_mentee_form.html','win','width=650,height=400')";>투표하기 <span class="badge">{{mentor.vote_set.count}}</span></button>
-                {% endif %}
+
+                    <button type="submit" class="btn btn-primary btn-lg" onclick="window.open('bid/new','win','width=650,height=400')";>신청하기 <span class="badge">{{mentor.vote_set.count}}</span></button>
+
             </form>
             <hr>
         </div>
