@@ -18,26 +18,26 @@
             <img src="{{post_by_mentor.photo1.url}}">
           </div>
           <div class="card-content">
-            <div class="card-header"> {{post_by_mentor.title}} </div>
+            <div class="card-header"><strong>제목:</strong> {{post_by_mentor.title}} </div>
           </div>
           <div class="card-content">
-            <div class="card-header"> {{post_by_mentor.capacity}} </div>
+            <div class="card-header"><strong>멘토링 인원:</strong> {{post_by_mentor.capacity}}명 </div>
           </div>
           <div class="card-content">
-            <div class="card-header"> {{post_by_mentor.hours}} </div>
+            <div class="card-header"><strong>멘토링 시간:</strong> {{post_by_mentor.hours}}시간 </div>
           </div>
           <div class="card-content">
-            <div class="card-header"> {{post_by_mentor.date}} </div>
+            <div class="card-header"><strong>멘토링 날짜:</strong> {{post_by_mentor.date}} </div>
           </div>
           <div class="card-content">
-            <div class="card-header"> {{post_by_mentor.lowest_price}} </div>
+            <div class="card-header"><strong>최저 멘토링비:</strong> {{post_by_mentor.lowest_price}}원 </div>
           </div>
           <div class="card-content">
-            <div class="card-header"> {{post_by_mentor.intro}} </div>
+            <div class="card-header"><strong>소개글:</strong> {{post_by_mentor.intro}} </div>
           </div>
 
           <div class="card-content">
-            <span class="pull-right"><i class="fa fa-heart"></i> 17 likes </span>
+            <span class="pull-right"><i class="fa fa-heart"></i> {{like_count}} </span>
             <i class="fa fa-comment"></i> 3 comments
           </div>
           <div class="card-extra card-content">
@@ -94,40 +94,6 @@
         </div>
 
 
-        <!-- <div class="row col-sm-12">
-            <div class="panel panel-default">
-                <div class="panel-heading text-center">{{mentor.title}}</div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            {{mentor.contents}}
-                        </div>
-                    </div>
-                    <hr class="small left" style="margin: 25px auto;">
-                    <div class="row">
-                        <img src="{{mentor.image.url}}" class="img-responsive center-block" width="80%" >
-                    </div>
-                </div>
-                <div class="panel-footer">
-                    <div class="row small text-center">
-                        작성일시: {{mentor.created_at|date:'Y-m-d H:i'}}
-                    </div>
-                    <div class="row small text-center">
-                        마지막 수정일시: {{mentor.updated_at|date:'Y-m-d H:i'}}
-                    </div>
-                    {% if mentor.author == user %}
-                    <div class="row">
-                        <div class="col-xs-3 col-xs-offset-3 text-right">
-                            <a class="btn btn-xs btn-primary" href="{% url 'mentor:mentor_edit' mentor.pk %}">수정</a>
-                        </div>
-                        <div class="col-xs-3">
-                            <a class="btn btn-xs btn-danger" href="{% url 'mentor:mentor_del' mentor.pk %}">삭제</a>
-                        </div>
-                    </div>
-                    {% endif %}
-                </div>
-            </div>
-        </div> -->
 
     {# 댓글 다는 부분 #}
         <div class="row col-sm-9 col-md-offset-1">
