@@ -86,7 +86,7 @@ class Bid_By_Mentee(models.Model):
     price = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.author
+        return str(self.author)
     def get_absolute_url(self):
         return reverse('mentoring:bid_by_mentee_detail', args=[self.post_by_mentor.pk, self.pk])
 
