@@ -30,7 +30,7 @@ def post_by_mentor_detail(request, pk):
         else:
             like = Like.objects.filter(like_user=request.user, like_post=post_by_mentor).exists()
             return render(request, 'mentoring/post_by_mentor_detail.html', {
-                'post' : post_by_mentor,
+                'post_by_mentor' : post_by_mentor,
                 'like' : like,
             })
     else:
@@ -65,19 +65,21 @@ def post_by_mentor_edit(request, pk):
             return redirect(post_by_mentor)
     else:
         form = Post_By_MentorForm(instance=post_by_mentor)
-    return render(request, 'mentoring/post_by_mentor_form.html', {
-        'form' : form,
+    return render(request, 'mentoring/post_by_mentor_edit.html', {
+        'post_by_mentor' : post_by_mentor,
     })
 
 @login_required
-def post_by_mentor_delete(request,pk):
+def post_by_mentor_delete(request, pk):
     post_by_mentor = get_object_or_404(Post_By_Mentor, pk=pk)
     if request.user != post_by_mentor.author:
         messages.error(request, "해당 멘토링을 삭제할 권한이 없습니다.")
         return redirect(post_by_mentor, pk=post_by_mentor.pk)
     post_by_mentor.delete()
     messages.error(request, "해당 멘토링 포스트가 삭제되었습니다.")
-    return redirect(mentor_list)
+    return render(request, 'mentoring/post_by_mentor_delete.html', {
+        'post_by_mentor' : post_by_mentor,
+    })
 
 @login_required
 def bid_by_mentee_detail(request, post_pk, pk):

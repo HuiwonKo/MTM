@@ -223,18 +223,18 @@
             return "{% static 'js/comment_edit.js' %}"
         }
 
-        $(document).ready(function (){
+      $(document).ready(function (){
             $('.page-heading.mentor').on('click', function (){
                 location.href = '/mentor/'
             })
-            $('#edit').on('click', function (){
-                location.href = "{% url 'mentoring:post_by_mentor_edit' mentor.pk %}"
-            })
             $('#delete').on('click', function (){
                 if (confirm('삭제하시겠습니까?'))
-                    location.href = "{% url 'mentor:mentor_del' mentor.pk %}"
+                    location.href = "{% url 'mentoring:post_by_mentor_delete' post_by_mentor.pk %}"
             })
-        })
+            $('#edit').on('click', function (){
+                location.href = "{% url 'mentoring:post_by_mentor_edit' post_by_mentor.pk %}"
+            })
+    })       
     </script>
     <script src="{% static 'js/comment_edit.js' %}"></script>
     <script src="{% static 'js/comment_add.js' %}"></script>
