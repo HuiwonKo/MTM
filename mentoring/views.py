@@ -76,6 +76,7 @@ def post_by_mentor_edit(request, pk):
         form = Post_By_MentorForm(instance=post_by_mentor)
     return render(request, 'mentoring/post_by_mentor_edit.html', {
         'post_by_mentor' : post_by_mentor,
+        'form' : form,
     })
 
 @login_required
@@ -86,7 +87,7 @@ def post_by_mentor_delete(request, pk):
         return redirect(post_by_mentor, pk=post_by_mentor.pk)
     post_by_mentor.delete()
     messages.error(request, "해당 멘토링 포스트가 삭제되었습니다.")
-    return render(request, 'mentoring/post_by_mentor_delete.html', {
+    return render(request, 'mentoring/post_by_mentor_detail.html', {
         'post_by_mentor' : post_by_mentor,
     })
 
