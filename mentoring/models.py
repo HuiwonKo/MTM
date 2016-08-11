@@ -51,7 +51,7 @@ class Post_By_Mentor(models.Model):
     #lnglat = models.CharField(max_length=20, verbose_name='멘토 위치')
     capacity = models.IntegerField(default=0,verbose_name='멘토링 인원')
     hours = models.IntegerField(default=0,verbose_name='멘토링 시간')
-    date = models.DateTimeField(max_length=50,verbose_name='멘토링 날짜')
+    date = models.DateTimeField(default='yyyy-mm-dd 형식으로 써주세요.',verbose_name='멘토링 날짜')
     lowest_price = models.IntegerField(default=0,verbose_name='최저 멘토링비')
     like_count = models.IntegerField(default=0, verbose_name='좋아요 수')
     intro = models.TextField(max_length=300, verbose_name='기타 소개')

@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'bootstrap3',
     'sorl.thumbnail',
+
 ]
 
 MIDDLEWARE_CLASSES = [
