@@ -1,5 +1,6 @@
 {% extends 'mentoring/base.html' %}
 {% load staticfiles %}
+{% load bootstrap3 %}
 {% load thumbnail %}
 {% block content %}
 <!-- Page Header -->
@@ -9,7 +10,7 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="page-heading mentor">
-                    <h1>Mento list</h1>
+                    <h1>Mentor list</h1>
                     <hr class="small">
                     <span class="subheading">원하는 멘토를 찾으세요.</span>
                 </div>
@@ -28,23 +29,48 @@
             {% endif %}
 
             <div class="show-like-table col-sm-12">
+
+
             {% for mentor in mentor_list %}
             <div class="col-md-4 col-sm-6 col-xs-12 wow slideInUp" data-wow-delay="0.1s">
                 <a href="{% url 'mentoring:post_by_mentor_detail' mentor.pk %}">
-                    <div class="mentor_container">
-                        <div class="img_container container-fluid">
-                            {% if mentor.image %}
-                                {% thumbnail mentor.image "150x100" crop="center" as im %}
-                                <img src="{{im.url}}" width="{{im.width}}" height="{{im.height}}" class="img-responsive col-xs-12" alt="">
-                                {% endthumbnail %}
-                            {% else %}
-                            <h3>{{mentor.title}}</h3>
+                <div class="card">
+                  <div class="card-image reveal-dim">
+                    <div class="reveal-hide reveal-content">
+                      <div class="reveal-center">
+                        <span>
+                          <a class="btn btn-inverted btn-bold btn-primary">Add Friend</a>
+                        </span>
+                      </div>
+                    </div>
+                    <img class="reveal-show" src="https://static.techinasia.com/wp-content/themes/techinasia/img/icon-defaultprofile.png">
+                  </div>
+                  <div class="card-content">
+                    <a class="card-header">Elliot</a>
+                    <div class="card-meta">Joined at 2014</div>
+                  </div>
+                  <div class="card-extra card-content">
+                    <a><i class="fa fa-users"></i> 2 Friends </a>
+                  </div>
+                </div>
+                    <div class="card">
+                        <div class="card-image">
+                        {% if mentor.image %}
+                        {% thumbnail mentor.image "150x100" crop="center" as im %}
+                        <img src="{{im.url}}" width="{{im.width}}" height="{{im.height}}" class="img-responsive col-xs-12" alt="">
+                        {% endthumbnail %}
+                        {% else %}
+                        <h3>{{mentor.title}}</h3>
                             {% endif %}
                         </div>
-                        <div class="mentor_title">
+
+                        <div class="card-content">
                             <h3>{{mentor.title}}</h3>
-                            <div class="wrap"><i class="fa fa-user" aria-hidden="true"></i> {{mentor.author.resume.name}}&nbsp득표수:{{mentor.vote_set.count}}</div>
-                            <div class="span12"><i class="fa fa-clock-o" aria-hidden="true"></i> {{mentor.updated_at|date:'Y-m-d H:m'}}</div>
+                            <div class="wrap card-extra card-content">
+                                좋아요:
+                            {{mentor.author.resume.name}}&nbsp{{mentor.vote_set.count}}
+                            </div>
+                            <div class="span12">created_at: {{mentor.updated_at|date:'Y-m-d H:m'}}</div>
                         </div>
                     </div>
                 </a>
@@ -60,6 +86,8 @@
              -->
         </div>
     </div>
+
+
 
 {% endblock %}
 {% block script %}

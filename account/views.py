@@ -6,12 +6,15 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.shortcuts import render,redirect,get_object_or_404
+from django.db.models import Q
 
 from .models import Profile,MentorInfo
 from .forms import ProfileForm, ProfileUpdateForm, MentorInfoForm
 
+from mentoring.models import Bid_By_Mentee, Bid_By_Mentor, Matched_Bid_By_Mentee, Matched_Bid_By_Mentor, Post_By_Mentee, Post_By_Mentor
 
-def signup(request):
+
+def sign_up(request):
     #register to users
     if request.user.is_anonymous():
         if request.method == "POST":
@@ -83,7 +86,7 @@ def mentor_info_edit(request):
 def matched_list(request):
     user = get_object_or_404(User, pk=request.user.pk)
     matched_list=[]
-    matched_list += Matched_Bid_By_Mentee.objects.filter(mentor=request.user or mentee=request.user)
-    matched_list += Matched_Bid_By_Mentor.objects.filter(mentor=request.user or mentee=request.user)
+    matched_list += Matched_Bid_By_Mentee.objects.filter(Q(mentor=user.profile.name)|Q(mentee=user.profile.name))
+    matched_list += Matched_Bid_By_Mentor.objects.filter(Q(mentor=user.profile.name)|Q(mentee=user.profile.name))
     return render(request,'account/matched_list.html',{'user':user,'matched_list':matched_list,})
 
