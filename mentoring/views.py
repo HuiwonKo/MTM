@@ -21,25 +21,30 @@ def mentor_list(request):
 def post_by_mentor_detail(request, pk):
     post_by_mentor = get_object_or_404(Post_By_Mentor, pk=pk)
     bid_by_mentee = Bid_By_Mentee.objects.filter(post_by_mentor=pk).count()
+    comment_list = Comment.objects.filter(post=post_by_mentor)
     if request.user.is_authenticated():
         if request.method == "POST":
-            if not Like.objects.filter(like_user = request.user, like_post = post_by_mentor).exists():
-                Like.objects.create(like_user = request.user, like_post = post_by_mentor)
-                return redirect(post_by_mentor)
-            else:
-                Like.objects.filter(like_user = request.user, like_post = post_by_mentor).delete()
+            form = CommentForm(request.POST)
+            if form.is_valid():
+                comment = form.save(commit=False)
+                comment.post = post_by_mentor
+                comment.author = request.user
+                comment.save()
                 return redirect(post_by_mentor)
         else:
-            like = Like.objects.filter(like_user=request.user, like_post=post_by_mentor).exists()
-            return render(request, 'mentoring/post_by_mentor_detail.html', {
-                'post_by_mentor' : post_by_mentor,
-                'like' : like,
-                'bid_by_mentee' : bid_by_mentee,
-            })
+            form = CommentForm()
+        return render(request, 'mentoring/post_by_mentor_detail.html', {
+            'post_by_mentor' : post_by_mentor,
+            'bid_by_mentee' : bid_by_mentee,
+            'form' : form,
+            'comment_list' : comment_list,
+        })
     else:
         return render(request, 'mentoring/post_by_mentor_detail.html', {
             'post_by_mentor' : post_by_mentor,
             'bid_by_mentee' : bid_by_mentee,
+            'form' : form,
+            'comment_list' : comment_list,
         })
 
 @login_required

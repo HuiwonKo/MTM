@@ -13,6 +13,14 @@
         <div class="card" style="margin-top: 10%;">
           <div class="card-content">
           <div class="card-header"> <h3>{{post_by_mentor.author}}</h3>
+          {% if post_by_mentor.author == user %}
+            <h2>
+            <span class="dropdown btn-group pull-right">
+                <a href='{% url 'mentoring:post_by_mentor_edit' post_by_mentor.pk %}'><img src="{% static 'img/edit.png' %}" style="width: 40px;" id="edit"></a>
+                <a href='{% url 'mentoring:post_by_mentor_delete' post_by_mentor.pk %}'><img src="{% static 'img/delete.png' %}" style="width: 40px;" id="delete"></a>
+            </span>
+            </h2>
+            {% endif %}</h3>
             <h4 align="right">{{bid_by_mentee}}명이 현재 입찰중</h4> </div>
           </div>
           <div class="card-image">
@@ -40,9 +48,19 @@
             <span class="pull-right"><i class="fa fa-heart"></i> {{like_count}} </span>
             <i class="fa fa-comment"></i> 3 comments
           </div>
+          <div>
+            <form method="POST">
+                {% csrf_token %}
+                {% bootstrap_field form.content %}
+                {% bootstrap_field form.secret %}
+                <input type='submit' value='댓글 달기'/>
+            </form>
+          </div>
           <div class="card-extra card-content">
+            {% for comment in comment_list %}
+            {{comment.content}} by {{comment.author}}
+            {% endfor %}
             <div class="input-group">
-              <input class="form-control" type="text" placeholder="Add comment...">
               <div class="input-group-btn">
                 <a class="btn btn-inverted btn-default"><i class="fa fa-paper-plane"></i></a>
               </div>
