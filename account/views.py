@@ -35,29 +35,15 @@ def sign_up(request):
 def profile(request):
     user = get_object_or_404(User, pk=request.user.pk)
     profile = get_object_or_404(Profile, pk=request.user.profile.pk)
-    if request.method == 'POST':
-        if  user.profile.mentor_info:
-            form = MentorInfoForm(request.POST, request.FILES, instance=user.profile.mentor_info)
-            if form.is_valid():
-                mentor_info=form.save(commit=False)
-                mentor_info.profile=profile
-                mentor_info.save()
-            return redirect("profile")
-        else:
-            form = MentorInfoForm(request.POST, request.FILES)
-            if form.is_valid():
-                mentor_info=form.save(commit=False)
-                mentor_info.profile=profile
-                mentor_info.save()
-            return redirect("profile")
-    else:
-        form = MentorInfoForm(instance = user.profile.mentor_info)
 
-    return render(request, 'account/profile.html', {
-        'user':user,
-        'profile' : profile,
-        'form' : form,
-    })
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, instance = user.profile)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+    else:
+        form = ProfileForm(instance = user.profile)
+    return render(request, 'account/profile.html',{'user':user,'form':form,})
 
 @login_required
 def profile_edit(request):
@@ -70,3 +56,4 @@ def profile_edit(request):
     else:
         form = ProfileUpdateForm(instance = user.profile)
     return render(request, 'account/profile_edit.html',{'user':user,'form':form,})
+
