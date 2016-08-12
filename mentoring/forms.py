@@ -7,12 +7,10 @@ class Post_By_MenteeForm(forms.ModelForm):
         model = Post_By_Mentee
         fields = ['title', 'gender', 'major', 'year', 'GPA', 'hours', 'date', 'price', 'intro']
 
-
 class Post_By_MentorForm(forms.ModelForm):
     class Meta:
         model = Post_By_Mentor
         fields = ['title', 'capacity', 'hours', 'date', 'lowest_price', 'photo1', 'intro']
-
 
 class Bid_By_MenteeForm(forms.ModelForm):
     class Meta:
