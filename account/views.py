@@ -52,7 +52,7 @@ def profile_edit(request):
         form = ProfileUpdateForm(request.POST, instance = user.profile)
         if form.is_valid():
             form.save()
-            return redirect('profile')
+            return render(request, 'account/profile.html',{'user':user,'form':form,})
     else:
         form = ProfileUpdateForm(instance = user.profile)
     return render(request, 'account/profile_edit.html',{'user':user,'form':form,})
@@ -61,7 +61,7 @@ def profile_edit(request):
 def mentor_info(request):
     user = get_object_or_404(User, pk=request.user.pk)
     profile = get_object_or_404(Profile, pk=request.user.profile.pk)
-    mentor_info = MentorInfo.objects.filter(profile=profile)
+    mentor_info = MentorInfo.objects.get(profile=profile)
     return render(request, 'account/mentor_info.html',{
         'user':user,
         'mentor_info':mentor_info,
@@ -70,14 +70,21 @@ def mentor_info(request):
 @login_required
 def mentor_info_edit(request):
     user = get_object_or_404(User, pk=request.user.pk)
+    profile = get_object_or_404(Profile, pk=request.user.profile.pk)
+    try:
+        mentor_info = MentorInfo.objects.get(profile=profile)
 
+    except MentorInfo.DoesNotExist:
+        mentor_info = None
     if request.method == 'POST':
-        form = MentorInfoUpdateForm(request.POST, instance = user.profile)
+        form = MentorInfoForm(request.POST, instance = mentor_info)
         if form.is_valid():
             form.save()
-            return redirect('mentor_info_edit')
+            return render(request, 'account/profile.html',{
+                'user':user, 'form':form,
+                })
     else:
-        form = MentorUpdateForm(request.POST, instance = user.profile)
+        form = MentorInfoForm(request.POST, instance = mentor_info)
     return render(request, 'account/mentor_info_edit.html',{'user':user, 'form':form,})
 
 @login_required

@@ -10,9 +10,7 @@ from django.forms import ValidationError
 
 from account.models import GENDER_CHOICES, MAJOR_CHOICES, GRADE_CHOICES, Profile
 
-def lnglat_validator(lnglat):
-    if not re.match(r'^(\d+\.?\d),(\d+\.?\d*)$'):
-        raise forms.ValidationError('Invalid LngLat Type')
+
 
 GPA_CHOICES = (
     ('아주 높은 편','아주 높은 편'),
@@ -44,7 +42,6 @@ class Post_By_Mentee(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     gender = models.CharField(max_length=20,choices=GENDER_CHOICES,default='',verbose_name='원하는 멘토 성별')
-    lnglat = models.CharField(max_length=20, verbose_name='멘티 위치')
     major = models.CharField(max_length=20, choices=MAJOR_CHOICES, default='',verbose_name='원하는 멘토 전공')
     year = models.CharField(max_length=40, choices=YEAR_CHOICES, default='', verbose_name='학년')
     GPA = models.CharField(max_length=40, choices=GPA_CHOICES,default='',verbose_name='성취도')

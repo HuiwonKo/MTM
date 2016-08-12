@@ -44,7 +44,7 @@ class ProfileUpdateForm(forms.ModelForm):
 class MentorInfoForm(forms.ModelForm):
     class Meta:
         model = MentorInfo
-        fields = ['age', 'gender', 'lnglat', 'highschool', 'university', 'major', 'grade', 'career', 'intro', 'image']
+        fields = ['age', 'gender', 'highschool', 'university', 'major', 'grade', 'career', 'intro', 'image']
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField(label='아이디')

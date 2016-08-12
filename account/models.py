@@ -81,7 +81,6 @@ class MentorInfo(models.Model):
     profile = models.OneToOneField(Profile, null=True)
     age = models.IntegerField(default=0)
     gender = models.CharField(max_length=20, choices=GENDER_CHOICES, default='', verbose_name='성별')
-    lnglat = models.CharField(max_length=20, verbose_name='멘토 위치')
     highschool = models.CharField(max_length=40, verbose_name='출신 고등학교')
     university = models.CharField(max_length=40, verbose_name='재학중인 대학교')
     major = models.CharField(max_length=40, choices=MAJOR_CHOICES, default='', verbose_name='전공')
