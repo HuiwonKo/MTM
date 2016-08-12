@@ -48,14 +48,11 @@
           <div class="card-content">
             <div class="card-header"><strong>소개글:</strong> {{post_by_mentor.intro}} </div>
           </div>
-          <div class="card-content">
-            <span class="pull-right"><i class="fa fa-heart"></i> {{like_count}} </span>
-            <i class="fa fa-comment"></i> 3 comments
-          </div>
+
           <div class="card-content">
           <form method="POST" enctype="multipart/form-data" class="text-center">
                  {% csrf_token %}
-                 <button type="submit" class="btn btn-primary btn-lg" onclick="window.open('bid/new','win','width=650,height=400')";>신청하기 
+                 <button type="submit" class="btn btn-primary btn-lg" onclick="window.open('bid/new','win','width=650,height=400')";>신청하기
                  <span class="badge">{{mentor.vote_set.count}}</span></button>
           </form>
           </div>
@@ -63,7 +60,6 @@
             <form method="POST">
                 {% csrf_token %}
                 {% bootstrap_field form.content %}
-                {% bootstrap_field form.secret %}
                 <input type='submit' value='댓글 달기'/>
             </form>
           </div>

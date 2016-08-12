@@ -57,8 +57,33 @@
           <div class="card-content">
             <div class="card-header"><strong>소개글:</strong> {{post_by_mentee.intro}} </div>
           </div>
+
           <div class="card-content">
-            <span class="pull-right"><i class="fa fa-heart"></i> {{like_count}} </span>
+          <form method="POST" enctype="multipart/form-data" class="text-center">
+                 {% csrf_token %}
+                 <button type="submit" class="btn btn-primary btn-lg" onclick="window.open('bid/new','win','width=650,height=400')";>신청하기
+                 <span class="badge">{{mentor.vote_set.count}}</span></button>
+          </form>
+          </div>
+          <div>
+            <form method="POST">
+                {% csrf_token %}
+
+
+                <input type='submit' value='댓글 달기'/>
+            </form>
+          </div>
+          <div class="card-extra card-content">
+            {% for comment in comment_list %}
+                <p>{{comment.content}} by {{comment.author}}
+                {% if comment.author == user %}
+                <span class="dropdown btn-group pull-right">
+                    <a href='{% url 'mentoring:comment_edit' post_by_mentor.pk comment.pk %}'><img src="{% static 'img/edit.png' %}" style="width: 20px;" id="edit"></a>
+                    <a href='{% url 'mentoring:comment_delete' post_by_mentor.pk comment.pk %}'><img src="{% static 'img/delete.png' %}" style="width: 20px;" id="delete"></a>
+                </span>
+                {% endif %}
+                </p>
+            {% endfor %}
           </div>
         </div>
         </div>

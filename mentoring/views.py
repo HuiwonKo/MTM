@@ -155,7 +155,9 @@ def mentee_list(request):
 
 def post_by_mentee_detail(request, pk):
     post_by_mentee = get_object_or_404(Post_By_Mentee, pk=pk)
+
     bid_by_mentor = Bid_By_Mentor.objects.filter(post_by_mentee=pk).count()
+
     if request.user.is_authenticated():
         return render(request, 'mentoring/post_by_mentee_detail.html', {
             'post_by_mentee' : post_by_mentee,
@@ -166,6 +168,8 @@ def post_by_mentee_detail(request, pk):
             'post_by_mentee' : post_by_mentee,
             'bid_by_mentor' : bid_by_mentor,
         })
+
+
 
 
 @login_required
